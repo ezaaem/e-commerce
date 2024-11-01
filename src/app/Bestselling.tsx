@@ -1,10 +1,10 @@
 "use client";
+
 import { useEffect, useState } from "react";
-import Image from "next/image";
 import ProductFrame from "./ProductFram";
 
 const Bestselling: React.FC = () => {
-  const [products, setProducts] = useState<any[]>([]);
+  const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
   useEffect(() => {
     const fetchProducts = async () => {
