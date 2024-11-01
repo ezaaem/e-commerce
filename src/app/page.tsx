@@ -4,7 +4,6 @@ import Cover from "./Cover";
 import Explore from "./Explore";
 import Features from "./Feature";
 import Flashsection from "./Flashsection";
-import Footer from "./Footer";
 
 export default function Home() {
   return (
