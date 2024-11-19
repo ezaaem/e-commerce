@@ -98,7 +98,7 @@ export default function Page() {
                 id="message"
                 placeholder="Your Message"
                 className="w-full px-4 py-2 border  rounded-sm bg-gray-100  focus:outline-none focus:ring-2 focus:ring-red-500"
-                rows="8"
+                rows={8}
               ></textarea>
             </div>
             <div className="text-right">
