@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 
 export default function Header() {
@@ -52,25 +53,33 @@ export default function Header() {
         <div className="flex gap-x-12">
           {/* Product dropdown */}
           <div className="relative">
-            <button
-              type="button"
-              className="flex items-center gap-x-1 text-sm font-semibold leading-6 text-gray-900"
-              aria-expanded="false"
+            <Link
+              href="/"
+              className="text-sm focus:border-b-2 font-semibold leading-6 text-gray-900"
             >
               Home
-            </button>
+            </Link>
           </div>
 
           {/* Other navigation items */}
-          <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
+          <Link
+            href="/contact"
+            className="text-sm focus:border-b-2 font-semibold leading-6 text-gray-900"
+          >
             Contact
-          </a>
-          <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
+          </Link>
+          <Link
+            href="/About"
+            className="text-sm focus:border-b-2 font-semibold leading-6 text-gray-900"
+          >
             About
-          </a>
-          <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
-            sign up
-          </a>
+          </Link>
+          <Link
+            href="/signup"
+            className="text-sm focus:border-b-2 font-semibold leading-6 text-gray-900"
+          >
+            Sign Up
+          </Link>
         </div>
 
         <div className="flex flex-1 justify-end ">
