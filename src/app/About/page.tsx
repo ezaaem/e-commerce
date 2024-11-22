@@ -11,6 +11,7 @@ import {
   Instagram,
   Linkedin,
 } from "lucide-react";
+import Image from "next/image";
 
 function StatCard({
   icon: Icon,
@@ -45,7 +46,9 @@ function TeamMember({
 }) {
   return (
     <div className="text-center ">
-      <img
+      <Image
+        width={192}
+        height={192}
         src={imageUrl}
         alt={name}
         className="w-48 h-48 rounded-full mx-auto mb-4 object-cover"

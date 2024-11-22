@@ -2,6 +2,8 @@
 import React, { useState } from "react";
 import { Input } from "../_components/Input";
 import { Button } from "../_components/Button";
+import Image from "next/image";
+import { Fullscreen } from "lucide-react";
 
 function App() {
   const [formData, setFormData] = useState({
@@ -23,7 +25,9 @@ function App() {
     <div className="min-h-screen bg-gray-50 flex">
       {/* Left Side - Image */}
       <div className="hidden lg:block lg:w-1/2 relative bg-[#e8f4f6]">
-        <img
+        <Image
+          width={500}
+          height={500}
           src="https://images.unsplash.com/photo-1483985988355-763728e1935b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80"
           alt="Shopping"
           className="absolute inset-0 w-full h-full object-cover mix-blend-multiply"
