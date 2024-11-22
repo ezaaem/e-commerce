@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import { Input } from "../_components/Input";
 import { Button } from "../_components/Button";
 import Image from "next/image";
-import { Fullscreen } from "lucide-react";
 
 function App() {
   const [formData, setFormData] = useState({
@@ -77,7 +76,9 @@ function App() {
             </Button>
 
             <Button type="button" variant="outline" fullWidth className="mt-3">
-              <img
+              <Image
+                width={20}
+                height={20}
                 src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg"
                 alt="Google"
                 className="w-5 h-5 inline mr-2"
