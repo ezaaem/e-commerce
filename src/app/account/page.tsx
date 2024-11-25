@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { User, Lock, Mail, MapPin } from "lucide-react";
 import { useSession } from "next-auth/react";
 import { Button } from "../_components/Button";
@@ -18,7 +18,16 @@ function App() {
     newPassword: "",
     confirmPassword: "",
   });
-
+  useEffect(() => {
+    if (status === "authenticated" && data) {
+      setFormData((prev) => ({
+        ...prev,
+        firstName: data.user.name.split(" ")[0] || prev.firstName,
+        lastName: data.user.name.split(" ")[1] || prev.lastName,
+        email: data.user.email || prev.email,
+      }));
+    }
+  }, [status, data]);
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -80,7 +89,7 @@ function App() {
                     <input
                       type="text"
                       name="firstName"
-                      value={data?.user?.name}
+                      value={formData.firstName}
                       onChange={handleChange}
                       className="block w-full pl-10 pr-3 py-2.5 border border-gray-300 rounded-lg text-gray-900 placeholder-gray-400 focus:ring-2 focus:ring-red-500 focus:border-red-500"
                     />
@@ -119,7 +128,7 @@ function App() {
                     <input
                       type="email"
                       name="email"
-                      value={data?.user?.email}
+                      value={formData.email}
                       onChange={handleChange}
                       className="block w-full pl-10 pr-3 py-2.5 border border-gray-300 rounded-lg text-gray-900 placeholder-gray-400 focus:ring-2 focus:ring-red-500 focus:border-red-500"
                     />
