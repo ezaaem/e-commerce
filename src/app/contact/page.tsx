@@ -1,5 +1,5 @@
 /* eslint-disable */
-
+"use client";
 export default function Page() {
   return (
     <div className="w-4/5  m-auto pb-10 my-16">

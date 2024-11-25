@@ -5,6 +5,7 @@ import Header from "./Header";
 
 import "./globals.css";
 import Footer from "./Footer";
+import NextAuthProvider from "./provider/NextAuthProvider";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -32,8 +33,9 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${inter.className} ${geistMono.variable} antialiased`}
       >
+        {" "}
         <Header />
-        {children}
+        <NextAuthProvider>{children}</NextAuthProvider>
         <Footer />
       </body>
     </html>

@@ -1,8 +1,8 @@
 import Image from "next/image";
-import { Input } from "../_components/Input";
-import { Button } from "../_components/Button";
 import { getServerSession } from "next-auth";
-import { authOptions } from "../lib/nextAuth";
+import { Input } from "./../../_components/Input";
+import { Button } from "./../../_components/Button";
+import { authOptions } from "@/app/lib/nextAuth";
 
 export const metadata = {
   title: "Create an Account",
@@ -28,7 +28,7 @@ export default async function App() {
         <div className="w-full max-w-md space-y-8">
           <div className="text-center">
             <h1 className="text-3xl font-bold text-gray-900">
-              Create an account
+              Log in to Exclusive
             </h1>
             <p className="mt-2 text-gray-600">Enter your details below</p>
           </div>
@@ -36,7 +36,6 @@ export default async function App() {
           {/* Server-Side Form Submission */}
           <form method="POST" action="/api/register" className="mt-8 space-y-6">
             <div className="space-y-4">
-              <Input label="Name" type="text" name="name" required />
               <Input
                 label="Email or Phone Number"
                 type="text"
@@ -52,7 +51,7 @@ export default async function App() {
             </div>
 
             <Button type="submit" fullWidth>
-              Create Account
+              login
             </Button>
 
             {session ? (
@@ -71,19 +70,9 @@ export default async function App() {
                   alt="Google"
                   className="w-5 h-5 inline mr-2"
                 />
-                Sign up with Google
+                Sign in with Google
               </Button>
             )}
-
-            <p className="text-center text-sm text-gray-600">
-              Already have an account?{" "}
-              <a
-                href="/auth/signin"
-                className="font-medium text-red-500 hover:text-red-600"
-              >
-                Log in
-              </a>
-            </p>
           </form>
         </div>
       </div>

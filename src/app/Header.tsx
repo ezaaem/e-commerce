@@ -1,9 +1,14 @@
 import Link from "next/link";
 import React from "react";
+import { getServerSession } from "next-auth";
+import { authOptions } from "./lib/nextAuth";
+import Image from "next/image";
 
-export default function Header() {
+export default async function Header() {
+  const session = await getServerSession(authOptions);
+
   return (
-    <header className="bg-white border-b -2">
+    <header className="bg-white border-b -2 sticky z-10 top-1">
       <div className="bg-black flex items-center justify-between py-3 lg:px-8">
         {/* Centered Text Section */}
         <div className="flex-1 pl-40 flex justify-center">
@@ -14,7 +19,7 @@ export default function Header() {
         </div>
 
         {/* Right Section */}
-        <div className="">
+        <div>
           <button
             type="button"
             className="flex items-center pr-32 text-sm text-white"
@@ -22,7 +27,7 @@ export default function Header() {
           >
             English
             <svg
-              className="h-5 w-5  text-gray-400"
+              className="h-5 w-5 text-gray-400"
               viewBox="0 0 20 20"
               fill="currentColor"
               aria-hidden="true"
@@ -74,23 +79,28 @@ export default function Header() {
           >
             About
           </Link>
-          <Link
-            href="/signup"
-            className="text-sm focus:border-b-2 font-semibold leading-6 text-gray-900"
-          >
-            Sign Up
-          </Link>
+          {session ? (
+            ""
+          ) : (
+            <Link
+              href="/signup"
+              className="text-sm focus:border-b-2 font-semibold leading-6 text-gray-900"
+            >
+              Sign Up
+            </Link>
+          )}
         </div>
 
-        <div className="flex flex-1 justify-end ">
-          <div className=" w-50 max-w-lg lg:max-w-xs ">
+        <div className="flex flex-1 justify-end">
+          {/* Search Input */}
+          <div className="w-50 max-w-lg lg:max-w-xs">
             <label htmlFor="search" className="sr-only">
               Search
             </label>
-            <div className="relative ">
-              <div className="absolute inset-y-0 right-2 flex items-center pl-3 ">
+            <div className="relative">
+              <div className="absolute inset-y-0 right-2 flex items-center pl-3">
                 <svg
-                  className="h-5 w-5  "
+                  className="h-5 w-5"
                   viewBox="0 0 20 20"
                   fill="currentColor"
                   aria-hidden="true"
@@ -105,12 +115,14 @@ export default function Header() {
               <input
                 id="search"
                 name="search"
-                className="block w-full rounded-sm  bg-gray-100 py-1.5 pl-4 pr-3 text-gray-900  ring-gray-300 placeholder:text-xs placeholder:text-gray-400   sm:text-sm sm:leading-6"
+                className="block w-full rounded-sm bg-gray-100 py-1.5 pl-4 pr-3 text-gray-900 ring-gray-300 placeholder:text-xs placeholder:text-gray-400 sm:text-sm sm:leading-6"
                 placeholder="What are you looking for?"
                 type="search"
               />
             </div>
           </div>
+
+          {/* Icons and Session Avatar */}
           <div className="flex items-center pl-3">
             <svg
               className="h-5 w-5"
@@ -130,18 +142,33 @@ export default function Header() {
               <path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z" />
             </svg>
           </div>
-          <div className="flex items-center pl-3">
-            <Link href="/account">
-              {" "}
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 448 512"
-                className="h-5 w-5"
-              >
-                <path d="M304 128a80 80 0 1 0 -160 0 80 80 0 1 0 160 0zM96 128a128 128 0 1 1 256 0A128 128 0 1 1 96 128zM49.3 464l349.5 0c-8.9-63.3-63.3-112-129-112l-91.4 0c-65.7 0-120.1 48.7-129 112zM0 482.3C0 383.8 79.8 304 178.3 304l91.4 0C368.2 304 448 383.8 448 482.3c0 16.4-13.3 29.7-29.7 29.7L29.7 512C13.3 512 0 498.7 0 482.3z" />
-              </svg>
-            </Link>
-          </div>
+
+          {/* Session User Avatar or Default Icon */}
+          {session ? (
+            <div className="flex items-center pl-3">
+              <Link href="/account">
+                <Image
+                  src={session.user?.image || "/default-avatar.png"} // Fallback image
+                  width={25} // Adjust width as needed
+                  height={25} // Adjust height as needed
+                  className="rounded-full" // Styling for rounded avatar
+                  alt="User Avatar"
+                />
+              </Link>
+            </div>
+          ) : (
+            <div className="flex items-center pl-3">
+              <Link href="/account">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 448 512"
+                  className="h-5 w-5"
+                >
+                  <path d="M304 128a80 80 0 1 0 -160 0 80 80 0 1 0 160 0zM96 128a128 128 0 1 1 256 0A128 128 0 1 1 96 128zM49.3 464l349.5 0c-8.9-63.3-63.3-112-129-112l-91.4 0c-65.7 0-120.1 48.7-129 112z" />
+                </svg>
+              </Link>
+            </div>
+          )}
         </div>
       </nav>
     </header>

@@ -1,3 +1,5 @@
+"use client";
+import { signIn } from "next-auth/react";
 import React from "react";
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -23,6 +25,7 @@ export const Button: React.FC<ButtonProps> = ({
 
   return (
     <button
+      onClick={() => signIn("google", { redirect: true, callbackUrl: "/" })}
       className={`${baseStyles} ${variants[variant]} ${
         fullWidth ? "w-full" : ""
       } ${className}`}

@@ -1,3 +1,4 @@
+"use client";
 import Bestselling from "./Bestselling";
 import Categories from "./Categories";
 import Cover from "./Cover";
