@@ -6,10 +6,20 @@ import { useSession } from "next-auth/react";
 import { Button } from "../_components/Button";
 import Image from "next/image";
 
-function App() {
+interface FormData {
+  firstName: string;
+  lastName: string;
+  email: string;
+  address: string;
+  currentPassword: string;
+  newPassword: string;
+  confirmPassword: string;
+}
+
+const App: React.FC = () => {
   const { data, status } = useSession();
 
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormData>({
     firstName: "Md",
     lastName: "Rimel",
     email: "rimel1111@gmail.com",
@@ -18,28 +28,48 @@ function App() {
     newPassword: "",
     confirmPassword: "",
   });
+
+  // Update form state with session data once authenticated
   useEffect(() => {
     if (status === "authenticated" && data) {
       setFormData((prev) => ({
         ...prev,
-        firstName: data.user.name.split(" ")[0] || prev.firstName,
-        lastName: data.user.name.split(" ")[1] || prev.lastName,
-        email: data.user.email || prev.email,
+        firstName: data.user?.name?.split(" ")[0] ?? prev.firstName,
+        lastName: data.user?.name?.split(" ")[1] ?? prev.lastName,
+        email: data?.user?.email ?? prev.email,
       }));
     }
   }, [status, data]);
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const isFormChanged = (): boolean => {
+    return (
+      formData.firstName !== "Md" ||
+      formData.lastName !== "Rimel" ||
+      formData.email !== "rimel1111@gmail.com" ||
+      formData.address !== "Kingston, 5236, United State" ||
+      formData.currentPassword !== "" ||
+      formData.newPassword !== "" ||
+      formData.confirmPassword !== ""
+    );
+  };
+
+  const handleSubmit = (e: React.FormEvent): void => {
     e.preventDefault();
-    // Handle form submission
+    if (formData.newPassword !== formData.confirmPassword) {
+      alert("Passwords do not match.");
+      return;
+    }
+    // Handle form submission logic
+    console.log("Form submitted:", formData);
   };
 
   return (
     <div className="min-h-screen bg-gray-50 flex items-center justify-center p-6">
-      {status === "loading" && <h1>loading...</h1>}
+      {status === "loading" && <h1 className="text-gray-700">Loading...</h1>}
       {status === "unauthenticated" && (
         <Button type="button" variant="outline" className="mt-3">
           <Image
@@ -79,7 +109,10 @@ function App() {
               {/* Name Fields */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
-                  <label className="text-sm font-medium text-gray-700">
+                  <label
+                    className="text-sm font-medium text-gray-700"
+                    htmlFor="firstName"
+                  >
                     First Name
                   </label>
                   <div className="relative">
@@ -88,16 +121,21 @@ function App() {
                     </div>
                     <input
                       type="text"
+                      id="firstName"
                       name="firstName"
                       value={formData.firstName}
                       onChange={handleChange}
                       className="block w-full pl-10 pr-3 py-2.5 border border-gray-300 rounded-lg text-gray-900 placeholder-gray-400 focus:ring-2 focus:ring-red-500 focus:border-red-500"
+                      aria-label="First Name"
                     />
                   </div>
                 </div>
 
                 <div className="space-y-2">
-                  <label className="text-sm font-medium text-gray-700">
+                  <label
+                    className="text-sm font-medium text-gray-700"
+                    htmlFor="lastName"
+                  >
                     Last Name
                   </label>
                   <div className="relative">
@@ -106,10 +144,12 @@ function App() {
                     </div>
                     <input
                       type="text"
+                      id="lastName"
                       name="lastName"
                       value={formData.lastName}
                       onChange={handleChange}
                       className="block w-full pl-10 pr-3 py-2.5 border border-gray-300 rounded-lg text-gray-900 placeholder-gray-400 focus:ring-2 focus:ring-red-500 focus:border-red-500"
+                      aria-label="Last Name"
                     />
                   </div>
                 </div>
@@ -118,7 +158,10 @@ function App() {
               {/* Email & Address */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
-                  <label className="text-sm font-medium text-gray-700">
+                  <label
+                    className="text-sm font-medium text-gray-700"
+                    htmlFor="email"
+                  >
                     Email
                   </label>
                   <div className="relative">
@@ -127,16 +170,21 @@ function App() {
                     </div>
                     <input
                       type="email"
+                      id="email"
                       name="email"
                       value={formData.email}
                       onChange={handleChange}
                       className="block w-full pl-10 pr-3 py-2.5 border border-gray-300 rounded-lg text-gray-900 placeholder-gray-400 focus:ring-2 focus:ring-red-500 focus:border-red-500"
+                      aria-label="Email"
                     />
                   </div>
                 </div>
 
                 <div className="space-y-2">
-                  <label className="text-sm font-medium text-gray-700">
+                  <label
+                    className="text-sm font-medium text-gray-700"
+                    htmlFor="address"
+                  >
                     Address
                   </label>
                   <div className="relative">
@@ -145,10 +193,12 @@ function App() {
                     </div>
                     <input
                       type="text"
+                      id="address"
                       name="address"
                       value={formData.address}
                       onChange={handleChange}
                       className="block w-full pl-10 pr-3 py-2.5 border border-gray-300 rounded-lg text-gray-900 placeholder-gray-400 focus:ring-2 focus:ring-red-500 focus:border-red-500"
+                      aria-label="Address"
                     />
                   </div>
                 </div>
@@ -161,19 +211,22 @@ function App() {
                 </h3>
                 <div className="grid grid-cols-1 gap-4">
                   {[
-                    "Current Password",
-                    "New Password",
-                    "Confirm New Password",
-                  ].map((label) => (
-                    <div key={label} className="relative">
+                    { name: "currentPassword", label: "Current Password" },
+                    { name: "newPassword", label: "New Password" },
+                    { name: "confirmPassword", label: "Confirm New Password" },
+                  ].map((field) => (
+                    <div key={field.name} className="relative">
                       <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                         <Lock className="h-5 w-5 text-gray-400" />
                       </div>
                       <input
                         type="password"
-                        name={label.toLowerCase().replace(/\s+/g, "")}
-                        placeholder={label}
+                        name={field.name}
+                        placeholder={field.label}
+                        value={[field.name]}
+                        onChange={handleChange}
                         className="block w-full pl-10 pr-3 py-2.5 border border-gray-300 rounded-lg text-gray-900 placeholder-gray-400 focus:ring-2 focus:ring-red-500 focus:border-red-500"
+                        aria-label={field.label}
                       />
                     </div>
                   ))}
@@ -191,7 +244,12 @@ function App() {
               </button>
               <button
                 type="submit"
-                className="px-6 py-2 bg-red-500 text-white text-sm font-medium rounded-lg hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition-colors"
+                disabled={!isFormChanged()}
+                className={`px-6 py-2 text-sm font-medium rounded-lg transition-colors ${
+                  isFormChanged()
+                    ? "bg-red-500 text-white hover:bg-red-600 focus:ring-red-500"
+                    : "bg-gray-300 text-gray-500 cursor-not-allowed"
+                }`}
               >
                 Save Changes
               </button>
@@ -201,6 +259,6 @@ function App() {
       )}
     </div>
   );
-}
+};
 
 export default App;
