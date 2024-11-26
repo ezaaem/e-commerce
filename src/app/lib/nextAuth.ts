@@ -1,19 +1,23 @@
-import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
+import { AuthOptions } from "next-auth";
 
-export const authOptions = {
+export const authOptions: AuthOptions = {
   providers: [
     GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID!,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+      clientId: process.env.GOOGLE_CLIENT_ID as string,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
     }),
   ],
-  secret: process.env.NEXTAUTH_SECRET,
-  callbacks: {
-    async redirect({ url, baseUrl }) {
-      return url.startsWith(baseUrl) ? url : baseUrl;
-    },
+  session: {
+    strategy: "jwt",
+    maxAge: 60 * 60 * 24 * 1, // 1 day
   },
+  secret: process.env.NEXTAUTH_SECRET,
+  pages: {
+    signIn: "/auth/signin",
+  },
+
+  debug: true, // Enable debug mode to get detailed logs
 };
 
-export default NextAuth(authOptions);
+// Log environment variables to verify they're loaded correctly
