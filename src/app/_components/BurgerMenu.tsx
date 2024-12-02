@@ -1,15 +1,38 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 
 export default function BurgerMenu() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const menuRef = useRef(null);
 
-  // Ensure the component is only rendered on the client
+  // Disable body scrolling when the menu is open
+  useEffect(() => {
+    if (menuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [menuOpen]);
+
+  // Close menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
+        setMenuOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   return (
-    <div className="burger-menu relative">
+    <div className="burger-menu relative" ref={menuRef}>
       <button
         onClick={() => setMenuOpen(!menuOpen)}
         className="text-gray-900 focus:outline-none"
@@ -55,24 +78,28 @@ export default function BurgerMenu() {
             <Link
               href="/"
               className="text-sm font-semibold text-gray-900 hover:text-gray-700"
+              onClick={() => setMenuOpen(false)}
             >
               Home
             </Link>
             <Link
               href="/contact"
               className="text-sm font-semibold text-gray-900 hover:text-gray-700"
+              onClick={() => setMenuOpen(false)}
             >
               Contact
             </Link>
             <Link
               href="/about"
               className="text-sm font-semibold text-gray-900 hover:text-gray-700"
+              onClick={() => setMenuOpen(false)}
             >
               About
             </Link>
             <Link
               href="/signup"
               className="text-sm font-semibold text-gray-900 hover:text-gray-700"
+              onClick={() => setMenuOpen(false)}
             >
               Sign Up
             </Link>

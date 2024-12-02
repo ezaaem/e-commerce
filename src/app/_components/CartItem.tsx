@@ -26,7 +26,7 @@ export const CartItem: React.FC<CartItemProps> = ({
         <Image
           width={20}
           height={20}
-          src={item.image || "https://via.placeholder.com/80"}
+          src={item.image}
           alt={item.name}
           className="w-20 h-20 object-cover rounded"
         />
