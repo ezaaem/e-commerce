@@ -2,6 +2,13 @@ import React from "react";
 import { Minus, Plus, X } from "lucide-react";
 import { CartItem as CartItemType } from "./context/cart";
 import Image from "next/image";
+interface CartItem {
+  id: string;
+  name: string;
+  price: number;
+  quantity: number;
+  image: string; // Ensure this exists in the type
+}
 
 interface CartItemProps {
   item: CartItemType;

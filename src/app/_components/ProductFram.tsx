@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import Image from "next/image";
 import { CartContext } from "./context/cart";
 
+// Define the structure of a product item
 interface ProductProps {
   id: string;
   title: string;
@@ -9,12 +10,38 @@ interface ProductProps {
   price: number;
 }
 
+interface CartItem {
+  id: string;
+  name: string;
+  price: number;
+  quantity: number;
+  image: string;
+}
+
 interface ProductFrameProps {
   products: ProductProps[];
 }
 
 export default function ProductFrame({ products }: ProductFrameProps) {
-  const { addToCart } = useContext(CartContext);
+  const context = useContext(CartContext);
+
+  // Check if the context is available
+  if (!context) {
+    return <div>Loading...</div>; // Handle if context is not available
+  }
+
+  const { addToCart } = context;
+
+  // Function to map product to cart item
+  const mapProductToCartItem = (product: ProductProps): CartItem => {
+    return {
+      id: product.id,
+      name: product.title, // Assuming 'title' is used as the product name
+      price: product.price,
+      quantity: 1,
+      image: product.image, // Default quantity when adding to the cart
+    };
+  };
 
   return (
     <div className="mx-auto max-w-screen-xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
@@ -79,7 +106,7 @@ export default function ProductFrame({ products }: ProductFrameProps) {
                 </span>
               </div>
               <button
-                onClick={() => addToCart(product)}
+                onClick={() => addToCart(mapProductToCartItem(product))}
                 className="bg-black w-full text-white h-10 hidden group-hover:block absolute bottom-0"
               >
                 Add to Cart

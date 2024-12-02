@@ -12,6 +12,7 @@ export interface CartItem {
   name: string;
   price: number;
   quantity: number;
+  image: string; // Ensure this is included
 }
 
 interface CartContextType {
@@ -20,7 +21,7 @@ interface CartContextType {
   removeFromCart: (item: CartItem) => void;
   clearCart: () => void;
   getCartTotal: () => number;
-  getCartLength: number;
+  getCartLength: number; // getCartLength is now a number
 }
 
 export const CartContext = createContext<CartContextType | undefined>(
@@ -83,6 +84,7 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
     );
   }, [cartItems]);
 
+  // Calculate getCartLength as a number
   const getCartLength = cartItems.reduce(
     (total, item) => total + item.quantity,
     0
@@ -102,7 +104,7 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
         removeFromCart,
         clearCart,
         getCartTotal,
-        getCartLength,
+        getCartLength, // Get cart length as a number
       }}
     >
       {children}
