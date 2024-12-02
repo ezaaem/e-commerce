@@ -5,14 +5,8 @@ import Link from "next/link";
 
 export default function BurgerMenu() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [isHydrated, setIsHydrated] = useState(false);
 
   // Ensure the component is only rendered on the client
-  useEffect(() => {
-    setIsHydrated(true);
-  }, []);
-
-  if (!isHydrated) return null;
 
   return (
     <div className="burger-menu relative">

@@ -5,6 +5,7 @@ const nextConfig = {
       "fakestoreapi.com",
       "images.unsplash.com",
       "lh3.googleusercontent.com",
+      "via.placeholder.com",
     ], // All domains in a single array
   },
   eslint: {
