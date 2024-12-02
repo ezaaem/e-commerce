@@ -5,7 +5,13 @@ import Link from "next/link";
 
 export default function BurgerMenu() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const menuRef = useRef(null);
+  const [hydrated, setHydrated] = useState(false); // To prevent SSR/CSR mismatch
+  const menuRef = useRef<HTMLDivElement>(null);
+
+  // Ensure hydration has completed
+  useEffect(() => {
+    setHydrated(true);
+  }, []);
 
   // Disable body scrolling when the menu is open
   useEffect(() => {
@@ -21,8 +27,8 @@ export default function BurgerMenu() {
 
   // Close menu when clicking outside
   useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (menuRef.current && !menuRef.current.contains(event.target)) {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
         setMenuOpen(false);
       }
     };
@@ -30,6 +36,11 @@ export default function BurgerMenu() {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
+
+  if (!hydrated) {
+    // Render nothing until hydration is complete
+    return null;
+  }
 
   return (
     <div className="burger-menu relative" ref={menuRef}>
