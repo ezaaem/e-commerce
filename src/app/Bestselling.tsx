@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import ProductFrame from "./ProductFram";
+import ProductFrame from "./_components/ProductFram";
 
 const Bestselling: React.FC = () => {
   const [products, setProducts] = useState([]);

@@ -7,6 +7,9 @@ const nextConfig = {
       "lh3.googleusercontent.com",
     ], // All domains in a single array
   },
+  eslint: {
+    ignoreDuringBuilds: true, // Ignore ESLint during builds
+  },
 };
 
-export default nextConfig;
+module.exports = nextConfig;

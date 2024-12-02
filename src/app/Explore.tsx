@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
-import ProductFrame from "./ProductFram";
+import ProductFrame from "./_components/ProductFram";
+import Link from "next/link";
 
 const Explore: React.FC = () => {
   const [products, setProducts] = useState([]);
@@ -77,10 +78,13 @@ const Explore: React.FC = () => {
       <ProductFrame products={products} />
       <div className="w-full flex justify-center items-center">
         {" "}
-        <button className=" flex justify-center items-center rounded-sm text-white bg-red-500 w-64 h-14">
+        <Link href="/allProducts">
           {" "}
-          View All Products{" "}
-        </button>{" "}
+          <button className=" flex justify-center items-center rounded-sm text-white bg-red-500 w-64 h-14">
+            {" "}
+            View All Products{" "}
+          </button>{" "}
+        </Link>
       </div>
     </div>
   );

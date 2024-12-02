@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { inter } from "./fonts/font";
 import Header from "./Header";
-
+import { CartProvider } from "./_components/context/cart";
 import "./globals.css";
 import Footer from "./Footer";
 import NextAuthProvider from "./provider/NextAuthProvider";
@@ -34,9 +34,13 @@ export default function RootLayout({
         className={`${geistSans.variable} ${inter.className} ${geistMono.variable} antialiased`}
       >
         {" "}
-        <Header />
-        <NextAuthProvider>{children}</NextAuthProvider>
-        <Footer />
+        <CartProvider>
+          <NextAuthProvider>
+            <Header />
+            {children}
+            <Footer />
+          </NextAuthProvider>
+        </CartProvider>
       </body>
     </html>
   );
