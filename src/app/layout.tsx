@@ -6,6 +6,7 @@ import { CartProvider } from "./_components/context/cart";
 import "./globals.css";
 import Footer from "./Footer";
 import NextAuthProvider from "./provider/NextAuthProvider";
+import { WishlistProvider } from "./_components/context/wishlist";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -35,11 +36,13 @@ export default function RootLayout({
       >
         {" "}
         <CartProvider>
-          <NextAuthProvider>
-            <Header />
-            {children}
-            <Footer />
-          </NextAuthProvider>
+          <WishlistProvider>
+            <NextAuthProvider>
+              <Header />
+              {children}
+              <Footer />
+            </NextAuthProvider>
+          </WishlistProvider>
         </CartProvider>
       </body>
     </html>

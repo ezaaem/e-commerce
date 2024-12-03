@@ -4,7 +4,7 @@ import Image from "next/image";
 export default function Cover() {
   return (
     <div className="flex   ">
-      <div className="w-56    border-r-2 h-max">
+      <div className="w-56 max-lg:hidden   border-r-2 h-max">
         <nav className="flex flex-col p-2 space-y-2">
           <a
             href="#"
@@ -82,12 +82,12 @@ export default function Cover() {
           </a>
         </nav>
       </div>
-      <div>
+      <div className="">
         <Image
           src="/Frame560.png"
           width={842}
           height={344}
-          className="pl-20 pt-10 "
+          className="pl-20  pt-10 "
           alt="blur"
         />
       </div>
