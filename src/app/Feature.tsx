@@ -4,7 +4,7 @@ import FeaturesSection from "./_components/featuresSection";
 
 const Feature: React.FC = () => {
   return (
-    <div className="relative pt-10 pb-8">
+    <div className="relative w-full pt-10 pb-8">
       {/* Button */}
       <button className="group relative inline-block overflow-hidden px-8 py-2">
         <span className="absolute inset-y-0 left-0 w-[20px] bg-red-600 rounded-sm transition-all group-hover:w-full"></span>
@@ -21,17 +21,16 @@ const Feature: React.FC = () => {
       </div>
 
       {/* Main Content */}
-      <div className="flex flex-col lg:flex-row h-auto lg:h-[37rem] w-full gap-8">
+      <div className="flex flex-col lg:flex-row gap-6 w-full">
         {/* Left Section */}
-        <div className="relative w-full lg:w-[36rem] h-[22rem] lg:h-[37rem] bg-black">
+        <div className="relative w-full lg:w-1/2 bg-black aspect-square lg:aspect-auto">
           <Image
             src="/ps5.png"
-            width={511}
-            height={511}
-            className="absolute bottom-0 left-3"
-            alt="blur"
+            fill
+            className="object-contain absolute bottom-0 left-3"
+            alt="PlayStation 5"
           />
-          <p className="text-white w-full md:w-52 text-xs absolute bottom-10 left-10">
+          <p className="text-white w-full px-4 md:px-10 text-xs absolute bottom-4">
             <span className="font-bold block text-lg md:text-xl pb-2">
               PlayStation 5
             </span>
@@ -47,10 +46,10 @@ const Feature: React.FC = () => {
         </div>
 
         {/* Right Section */}
-        <div className="flex flex-col gap-8 w-full lg:w-auto">
+        <div className="flex flex-col gap-6 w-full lg:w-1/2">
           {/* Top Right */}
-          <div className="relative w-full h-[22rem] md:h-72 bg-black">
-            <p className="text-white w-full md:w-52 text-xs absolute bottom-10 left-10">
+          <div className="relative bg-black aspect-[16/9]">
+            <p className="text-white px-4 md:px-10 text-xs absolute bottom-4">
               <span className="font-bold block text-lg md:text-xl pb-2">
                 Women’s Collections
               </span>
@@ -66,16 +65,15 @@ const Feature: React.FC = () => {
           </div>
 
           {/* Bottom Right */}
-          <div className="flex flex-col md:flex-row gap-8 w-full">
-            <div className="relative h-[22rem] md:h-72 w-full md:w-72 bg-black">
+          <div className="flex flex-col md:flex-row gap-6 w-full">
+            <div className="relative bg-black aspect-square md:w-1/2">
               <Image
                 src="/echo.png"
-                width={190}
-                height={221}
-                className="absolute top-9 left-9"
-                alt="blur"
+                fill
+                className="object-contain absolute"
+                alt="Amazon Echo"
               />
-              <p className="text-white w-full md:w-52 text-xs absolute bottom-5 left-5">
+              <p className="text-white px-4 text-xs absolute bottom-4">
                 <span className="font-bold block text-lg md:text-xl pb-2">
                   Speakers
                 </span>
@@ -89,15 +87,14 @@ const Feature: React.FC = () => {
                 </a>
               </p>
             </div>
-            <div className="relative h-[22rem] md:h-72 w-full md:w-72 bg-black">
+            <div className="relative bg-black aspect-square md:w-1/2">
               <Image
                 src="/65.png"
-                width={201}
-                height={203}
-                className="absolute top-9 left-9"
-                alt="blur"
+                fill
+                className="object-contain absolute"
+                alt="Perfume"
               />
-              <p className="text-white w-full md:w-52 text-xs absolute bottom-5 left-5">
+              <p className="text-white px-4 text-xs absolute bottom-4">
                 <span className="font-bold block text-lg md:text-xl pb-2">
                   Perfume
                 </span>
@@ -123,7 +120,7 @@ const Feature: React.FC = () => {
           className="inline-block rounded-full absolute bg-gray-200 bottom-1 right-2 p-3 text-black hover:bg-red-600 hover:text-white focus:outline-none focus:ring active:text-red-600"
         >
           <svg
-            className="size-5 -rotate-90"
+            className="w-5 h-5 -rotate-90"
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"

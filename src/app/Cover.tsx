@@ -82,12 +82,12 @@ export default function Cover() {
           </a>
         </nav>
       </div>
-      <div className="">
+      <div className=" ">
         <Image
           src="/Frame560.png"
           width={842}
           height={344}
-          className="pl-20  pt-10 "
+          className="lg:pl-20 flex justify-center items-center lg:pt-10 "
           alt="blur"
         />
       </div>

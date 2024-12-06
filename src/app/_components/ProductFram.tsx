@@ -73,18 +73,18 @@ export default function ProductFrame({ products }: ProductFrameProps) {
   });
 
   return (
-    <div className="mx-auto max-w-screen-xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
-      <ul className="mt-8 grid gap-4 w-full sm:grid-cols-2 lg:grid-cols-4">
+    <div className="mx-auto w-4/5 max-w-screen-xl lg:px-4 py-8 sm:px-6 sm:py-12 ">
+      <ul className="mt-8 grid gap-4 w-full max-sm:grid-cols-2 max-sm:gap-2 justify-center md:grid-cols-2 lg:grid-cols-4">
         {productsWithRandomData.map((product) => (
           <li key={product.id} className="group">
-            <div className="relative w-72 h-64 flex justify-center items-center rounded-md border-2 border-slate-200">
+            <div className="relative w-72 h-64  max-sm:w-48 max-sm:h-48 flex justify-center items-center rounded-md border-2 border-slate-200">
               <Link href={`/${product.id}`}>
                 {" "}
                 <Image
                   src={product.image}
                   alt={`Image of ${product.title}`}
-                  width={150}
-                  height={150}
+                  width={140}
+                  height={140}
                   className="object-cover transition duration-500 bg-slate-200 group-hover:scale-105"
                 />
               </Link>
@@ -122,7 +122,7 @@ export default function ProductFrame({ products }: ProductFrameProps) {
               </button>
             </div>
 
-            <div className="relative pt-6">
+            <div className="  pt-6">
               <h3 className="text-xs text-gray-700 group-hover:underline group-hover:underline-offset-4">
                 {product.title}
               </h3>

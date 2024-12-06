@@ -63,87 +63,101 @@ const Flashsection: React.FC = () => {
   }, []);
 
   return (
-    <div className="pt-20 pb-12 border-b-2">
-      <button className="group relative inline-block overflow-hidden px-8 py-2">
-        <span className="absolute inset-y-0 left-0 w-[20px] bg-red-600 rounded-sm transition-all group-hover:w-full"></span>
-        <span className="relative text-sm font-bold text-red-600 transition-colors group-hover:text-white">
-          Today’s
-        </span>
-      </button>
-      <div className="flex relative pt-8">
-        <div className="flex">
-          <div className="flex">
-            <h2 className="text-4xl font-bold pr-16 pt-2">Flash Sales</h2>
+    <div className="lg:pt-20 max-sm:pt-3 pb-12 border-b-2">
+      <div className="max-sm:flex gap-10">
+        <button className="group relative inline-block overflow-hidden px-8 py-2">
+          <span className="absolute inset-y-0 left-0 w-[20px] bg-red-600 rounded-sm transition-all group-hover:w-full"></span>
+          <span className="relative text-sm font-bold text-red-600 transition-colors group-hover:text-white">
+            Today’s
+          </span>
+        </button>
+
+        <div className="relative pt-8">
+          <div className="flex flex-col md:flex-row items-center md:justify-between">
+            <div className="flex flex-col items-center md:flex-row md:items-start">
+              <h2 className="text-2xl md:text-4xl font-bold md:pr-16 md:pt-2">
+                Flash Sales
+              </h2>
+              <div className="flex text-center md:text-left pt-4 md:pt-0">
+                <p className="text-xs md:text-sm">
+                  Days
+                  <br />
+                  <span className="text-xl md:text-2xl font-bold">
+                    {timeLeft.days}
+                  </span>
+                </p>
+                <span className="text-xl md:text-4xl text-red-600 px-2">:</span>
+                <p className="text-xs md:text-sm">
+                  Hours
+                  <br />
+                  <span className="text-xl md:text-2xl font-bold">
+                    {timeLeft.hours}
+                  </span>
+                </p>
+                <span className="text-xl md:text-4xl text-red-600 px-2">:</span>
+                <p className="text-xs md:text-sm">
+                  Minutes
+                  <br />
+                  <span className="text-xl md:text-2xl font-bold">
+                    {timeLeft.minutes}
+                  </span>
+                </p>
+                <span className="text-xl md:text-4xl text-red-600 px-2">:</span>
+                <p className="text-xs md:text-sm">
+                  Seconds
+                  <br />
+                  <span className="text-xl md:text-2xl font-bold">
+                    {timeLeft.seconds}
+                  </span>
+                </p>
+              </div>
+            </div>
+
+            <div className="flex mt-4 md:mt-0 md:absolute max-sm:hidden md:gap-1 md:right-0">
+              <a className="inline-block rounded-full bg-gray-200 p-3 text-black hover:bg-red-600 hover:text-white focus:outline-none focus:ring active:text-red-600">
+                <svg
+                  className="h-5 w-5 rotate-180"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M14 5l7 7m0 0l-7 7m7-7H3"
+                  />
+                </svg>
+              </a>
+              <a className="inline-block rounded-full bg-gray-200 p-3 text-black hover:bg-red-600 hover:text-white focus:outline-none focus:ring active:bg-red-600">
+                <svg
+                  className="h-5 w-5"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M14 5l7 7m0 0l-7 7m7-7H3"
+                  />
+                </svg>
+              </a>
+            </div>
           </div>
-          <div className="flex">
-            <p className="text-xs">
-              Days
-              <br /> <span className="text-2xl font-bold">{timeLeft.days}</span>
-            </p>
-            <span className="text-4xl text-red-600 pl-2 pr-2">:</span>
-            <p className="text-xs">
-              Hours
-              <br />{" "}
-              <span className="text-2xl font-bold">{timeLeft.hours}</span>
-            </p>
-            <span className="text-4xl text-red-600 pl-2 pr-2">:</span>
-            <p className="text-xs">
-              Minutes
-              <br />{" "}
-              <span className="text-2xl font-bold">{timeLeft.minutes}</span>
-            </p>
-            <span className="text-4xl text-red-600 pl-2 pr-2">:</span>
-            <p className="text-xs">
-              Seconds
-              <br />{" "}
-              <span className="text-2xl font-bold">{timeLeft.seconds}</span>
-            </p>
-          </div>
-        </div>
-        <div className="flex absolute gap-1 right-1">
-          <a className="inline-block rounded-full bg-gray-200 p-3 text-black hover:bg-red-600 hover:text-white focus:outline-none focus:ring active:text-red-600">
-            <svg
-              className="size-5 rotate-180"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M14 5l7 7m0 0l-7 7m7-7H3"
-              />
-            </svg>
-          </a>
-          <a className="inline-block rounded-full bg-gray-200 p-3 text-black hover:bg-red-600 hover:text-white focus:outline-none focus:ring active:bg-red-600">
-            <svg
-              className="size-5 rtl:rotate-180"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M14 5l7 7m0 0l-7 7m7-7H3"
-              />
-            </svg>
-          </a>
         </div>
       </div>
+
       <ProductFrame products={products} />
-      <div className="w-full flex justify-center items-center">
-        {" "}
+
+      <div className="w-full flex justify-center items-center pt-6">
         <Link href="/allProducts">
-          {" "}
-          <button className=" flex justify-center items-center rounded-sm text-white bg-red-500 w-64 h-14">
-            {" "}
-            View All Products{" "}
-          </button>{" "}
+          <button className="flex justify-center items-center rounded-sm text-white bg-red-500 w-48 sm:w-56 lg:w-64 h-12 sm:h-14">
+            View All Products
+          </button>
         </Link>
       </div>
     </div>

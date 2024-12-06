@@ -30,7 +30,7 @@ interface WishlistContextType {
   clearWishlist: () => void;
   isInWishlist: (itemId: string) => boolean;
   moveAllToBag: () => void;
-  getWishlistCount: () => number; // Change back to a method
+  getWishlistCount: () => number;
 }
 
 export const WishlistContext = createContext<WishlistContextType | undefined>(
@@ -115,7 +115,6 @@ export const WishlistProvider: React.FC<WishlistProviderProps> = ({
     clearWishlist();
   }, [clearWishlist]);
 
-  // Change back to a method that returns the count
   const getWishlistCount = useCallback(() => {
     return wishlistItems.length;
   }, [wishlistItems]);

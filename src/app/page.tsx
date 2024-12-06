@@ -9,7 +9,7 @@ import Flashsection from "./Flashsection";
 export default function Home() {
   return (
     <>
-      <div className="w-[82%]  mx-auto   ">
+      <div className="lg:w-[82%]  mx-auto   ">
         <Cover />
         <Flashsection />
         <Categories />

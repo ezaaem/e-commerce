@@ -37,7 +37,7 @@ const Bestselling: React.FC = () => {
       <div className="flex relative pt-8">
         <div className="flex">
           <div className="flex">
-            <h2 className="text-4xl font-bold pr-16 pt-2">
+            <h2 className="lg:text-4xl max-sm:text-2xl font-bold pr-16 pt-2">
               Best Selling Products
             </h2>
           </div>

@@ -35,12 +35,12 @@ const Explore: React.FC = () => {
       <div className="flex relative pt-8">
         <div className="flex">
           <div className="flex">
-            <h2 className="text-4xl font-bold pr-16 pt-2">
+            <h2 className="lg:text-4xl max-sm:text-2xl font-bold pr-16 pt-2">
               Explore Our Products
             </h2>
           </div>
         </div>
-        <div className="flex absolute gap-1 right-1">
+        <div className="flex max-sm:hidden absolute gap-1 right-1">
           <a className="inline-block rounded-full bg-gray-200 p-3 text-black hover:bg-red-600 hover:text-white focus:outline-none focus:ring active:text-red-600">
             <svg
               className="size-5 rotate-180"

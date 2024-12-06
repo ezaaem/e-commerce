@@ -12,7 +12,7 @@ export interface CartItem {
   name: string;
   price: number;
   quantity: number;
-  image: string; // Ensure this is included
+  image: string;
 }
 
 interface CartContextType {
@@ -21,7 +21,7 @@ interface CartContextType {
   removeFromCart: (item: CartItem) => void;
   clearCart: () => void;
   getCartTotal: () => number;
-  getCartLength: number; // getCartLength is now a number
+  getCartLength: number;
 }
 
 export const CartContext = createContext<CartContextType | undefined>(

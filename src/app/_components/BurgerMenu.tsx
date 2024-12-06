@@ -84,8 +84,8 @@ export default function BurgerMenu() {
       </button>
 
       {menuOpen && (
-        <div className="absolute top-full left-0 w-full bg-white shadow-lg z-50 md:hidden">
-          <div className="flex flex-col gap-y-4 px-4 py-4">
+        <div className="absolute top-full left-0 w-screen bg-white shadow-lg z-50 md:hidden">
+          <div className="flex flex-col gap-y-4 px-6 py-4">
             <Link
               href="/"
               className="text-sm font-semibold text-gray-900 hover:text-gray-700"

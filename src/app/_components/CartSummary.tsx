@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 
 interface CartSummaryProps {
   subtotal: number;
@@ -33,12 +34,14 @@ export const CartSummary: React.FC<CartSummaryProps> = ({
             <span className="font-semibold">${total.toFixed(2)}</span>
           </div>
         </div>
-        <button
-          onClick={onCheckout}
-          className="w-full bg-red-500 text-white py-3 rounded-lg hover:bg-red-600 transition-colors mt-4"
-        >
-          Proceed to checkout
-        </button>
+        <Link href="./Checkout">
+          <button
+            onClick={onCheckout}
+            className="w-full bg-red-500 text-white py-3 rounded-lg hover:bg-red-600 transition-colors mt-4"
+          >
+            Proceed to checkout
+          </button>
+        </Link>
       </div>
     </div>
   );

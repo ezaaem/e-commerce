@@ -15,13 +15,12 @@ export default async function Header() {
       <div className="bg-black flex items-center lg:justify-between lg:py-3 lg:px-8">
         {/* Centered Text Section */}
         <div className="lg:flex-1 md:text-sm lg:pl-40 flex justify-center">
-          <p className="font-medium lg:text-sm max-sm:text-[0.5rem] md:text-[0.5rem] text-white text-center">
+          <p className="text-white text-center text-xs sm:text-sm md:text-base lg:text-sm max-w-[90%] lg:max-w-full">
             Summer Sale For All Swim Suits And Free Express Delivery - OFF 50%!
-            <span className="lg-font-bold underline max-sm:text-[0.5rem] lg:pl-2">
-              Shop Now
-            </span>
+            <span className="font-bold underline pl-1">Shop Now</span>
           </p>
         </div>
+
         {/* Right Section */}
         <div>
           <button
@@ -55,10 +54,9 @@ export default async function Header() {
           <div className="lg:hidden ">
             <BurgerMenu />
           </div>
-          <a href="#" className="-m-1.5 p-1.5">
-            <span className="sr-only">Your Company</span>
+          <Link href="./" className="-m-1.5 p-1.5 max-sm:pl-3">
             <h1 className="font-extrabold">Exclusive</h1>
-          </a>
+          </Link>
         </div>
         {/* Desktop navigation */}
         <div className="flex max-sm:hidden gap-x-12">
@@ -138,19 +136,19 @@ export default async function Header() {
 
           {/* Session User Avatar or Default Icon */}
           {session ? (
-            <div className="flex items-center pl-3">
+            <div className="flex items-center max-sm:pl-2 lg:pl-3">
               <Link href="/account">
                 <Image
                   src={session.user?.image || "/default-avatar.png"} // Fallback image
                   width={25} // Adjust width as needed
                   height={25} // Adjust height as needed
-                  className="rounded-full" // Styling for rounded avatar
+                  className="rounded-full min-h-5 min-w-5  " // Styling for rounded avatar
                   alt="User Avatar"
                 />
               </Link>
             </div>
           ) : (
-            <div className="flex items-center pl-3">
+            <div className="flex items-center max-sm:pl-4 lg:pl-3">
               <Link href="/account">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
