@@ -3,7 +3,7 @@ import React from "react";
 import { BillingForm } from "./../_components/BillingForm";
 import { OrderSummary } from "./../_components/OrderSummary";
 
-export const Checkout: React.FC = () => {
+const Checkout: React.FC = () => {
   const handleSubmit = (data: FormData) => {
     // Handle form submission
     console.log("Form submitted:", data);
