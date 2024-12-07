@@ -73,7 +73,7 @@ export default function ProductFrame({ products }: ProductFrameProps) {
   });
 
   return (
-    <div className="mx-auto w-4/5 max-w-screen-xl lg:px-4 py-8 sm:px-6 sm:py-12 ">
+    <div className="mx-auto max-sm:w-4/5 max-w-screen-xl lg:px-4 py-8 sm:px-6 sm:py-12 ">
       <ul className="mt-8 grid gap-4 w-full max-sm:grid-cols-2 max-sm:gap-2 justify-center md:grid-cols-2 lg:grid-cols-4">
         {productsWithRandomData.map((product) => (
           <li key={product.id} className="group">
