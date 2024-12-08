@@ -5,27 +5,9 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import ProductFrame from "./_components/ProductFram";
 import Link from "next/link";
+import { Skeleton } from "@mui/material";
+import FetchProduct from "./Fetchproducts";
 const Flashsection: React.FC = () => {
-  const [products, setProducts] = useState<any[]>([]);
-  const [loading, setLoading] = useState(false);
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const res = await fetch("https://fakestoreapi.com/products?limit=4");
-        const data = await res.json();
-        setProducts(data);
-        setLoading(false);
-      } catch {
-        console.error("Error fetching products:", Error);
-        setLoading(false);
-      }
-    };
-    fetchProducts();
-  }, []);
-  if (loading) {
-    return <p>Loading products...</p>; // Display a loading message
-  }
-
   const [timeLeft, setTimeLeft] = useState({
     days: 0,
     hours: 0,
@@ -151,7 +133,7 @@ const Flashsection: React.FC = () => {
         </div>
       </div>
 
-      <ProductFrame products={products} />
+      <FetchProduct apilink="https://fakestoreapi.com/products?limit=4" />
 
       <div className="w-full flex justify-center items-center pt-6">
         <Link href="/allProducts">

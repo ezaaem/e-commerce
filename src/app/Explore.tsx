@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import ProductFrame from "./_components/ProductFram";
 import Link from "next/link";
+import FetchProduct from "./Fetchproducts";
 
 const Explore: React.FC = () => {
   const [products, setProducts] = useState([]);
@@ -75,7 +76,7 @@ const Explore: React.FC = () => {
           </a>
         </div>
       </div>
-      <ProductFrame products={products} />
+      <FetchProduct apilink="https://fakestoreapi.com/products?limit=8" />{" "}
       <div className="w-full flex justify-center items-center">
         {" "}
         <Link href="/allProducts">

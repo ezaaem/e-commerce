@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import ProductFrame from "../_components/ProductFram";
+import { Skeleton } from "@mui/material";
 
 interface Product {
   id: string;
@@ -37,7 +38,24 @@ export default function AllProducts() {
   }, []);
 
   if (loading) {
-    return <p>Loading products...</p>;
+    return (
+      <div className="grid w-5/6 pt-24 justify-center items-center mx-auto grid-cols-1 gap-1 sm:grid-cols-2 lg:grid-cols-4">
+        {Array.from({ length: 12 }).map((_, index) => (
+          <div>
+            <Skeleton
+              key={index}
+              variant="rectangular"
+              width={288}
+              height={256}
+              className="rounded-lg"
+            />
+            <Skeleton width="60%" />
+            <Skeleton width="30%" />
+            <Skeleton width="50%" />
+          </div>
+        ))}
+      </div>
+    );
   }
 
   if (error) {

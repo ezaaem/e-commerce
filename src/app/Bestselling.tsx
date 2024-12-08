@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import ProductFrame from "./_components/ProductFram";
+import FetchProduct from "./Fetchproducts";
 
 const Bestselling: React.FC = () => {
   const [products, setProducts] = useState([]);
@@ -50,7 +51,7 @@ const Bestselling: React.FC = () => {
           </div>
         </div>
       </div>
-      <ProductFrame products={products} />
+      <FetchProduct apilink="https://fakestoreapi.com/products/category/jewelery" />{" "}
     </div>
   );
 };

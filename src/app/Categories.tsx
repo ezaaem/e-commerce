@@ -52,7 +52,7 @@ const Categories: React.FC = () => {
           </a>
         </div>
       </div>
-      <div className=" grid grid-cols-2 w-4/5 md:grid-cols-3 lg:grid-cols-6 gap-3 mx-auto justify-center ">
+      <div className=" grid grid-cols-2 max-sm:w-4/5 md:grid-cols-3 lg:grid-cols-6 gap-3 mx-auto justify-center ">
         <div className="flex  justify-center items-center w-44 h-36 border-2 hover:bg-red-500  gap-3">
           <div>
             <svg

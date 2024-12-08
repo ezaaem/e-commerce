@@ -3,6 +3,10 @@ import Image from "next/image";
 import { CartContext } from "./context/cart";
 import { WishlistContext } from "./context/wishlist";
 import Link from "next/link";
+import Grid from "@mui/material/Grid";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import Skeleton from "@mui/material/Skeleton";
 
 interface ProductProps {
   id: string;
@@ -80,13 +84,17 @@ export default function ProductFrame({ products }: ProductFrameProps) {
             <div className="relative w-72 h-64  max-sm:w-48 max-sm:h-48 flex justify-center items-center rounded-md border-2 border-slate-200">
               <Link href={`/${product.id}`}>
                 {" "}
-                <Image
-                  src={product.image}
-                  alt={`Image of ${product.title}`}
-                  width={140}
-                  height={140}
-                  className="object-cover transition duration-500 bg-slate-200 group-hover:scale-105"
-                />
+                {product ? (
+                  <Image
+                    src={product.image}
+                    alt={`Image of ${product.title}`}
+                    width={140}
+                    height={140}
+                    className="object-cover transition duration-500 bg-slate-200 group-hover:scale-105"
+                  />
+                ) : (
+                  <Skeleton variant="rectangular" width={210} height={118} />
+                )}
               </Link>
               <span className="absolute top-3 left-2 text-white w-14 h-7 bg-red-500 rounded-md text-xs flex justify-center items-center">
                 -70%
