@@ -1,12 +1,10 @@
-import React, { useContext, useMemo } from "react";
+import React, { useContext, useMemo, useState } from "react";
 import Image from "next/image";
 import { CartContext } from "./context/cart";
 import { WishlistContext } from "./context/wishlist";
 import Link from "next/link";
-import Grid from "@mui/material/Grid";
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
 import Skeleton from "@mui/material/Skeleton";
+import Rating from "@mui/material/Rating";
 
 interface ProductProps {
   id: string;
@@ -50,15 +48,15 @@ export default function ProductFrame({ products }: ProductFrameProps) {
   const { addToCart } = context;
   const { addToWishlist } = wishlist;
 
-  // Precompute random data
-  const productsWithRandomData: ProductWithRandomData[] = useMemo(
-    () =>
-      products.map((product) => ({
-        ...product,
-        rating: Math.floor(Math.random() * 5) + 1, // Random rating between 1 and 5
-        reviews: Math.floor(Math.random() * 100) + 1, // Random reviews between 1 and 100
-      })),
-    [products]
+  // Initialize state for products with random data
+  const [productsWithRandomData, setProductsWithRandomData] = useState<
+    ProductWithRandomData[]
+  >(() =>
+    products.map((product) => ({
+      ...product,
+      rating: Math.floor(Math.random() * 5) + 1, // Random rating between 1 and 5
+      reviews: Math.floor(Math.random() * 100) + 1, // Random reviews between 1 and 100
+    }))
   );
 
   const mapProductToCartItem = (product: ProductProps): CartItem => ({
@@ -76,14 +74,28 @@ export default function ProductFrame({ products }: ProductFrameProps) {
     image: product.image,
   });
 
+  // Update product rating and reviews
+  const handleRatingChange = (productId: string, newRating: number) => {
+    setProductsWithRandomData((prevProducts) =>
+      prevProducts.map((product) =>
+        product.id === productId
+          ? {
+              ...product,
+              rating: newRating,
+              reviews: product.reviews + 1, // Increment reviews by 1
+            }
+          : product
+      )
+    );
+  };
+
   return (
-    <div className="mx-auto max-sm:w-4/5 max-w-screen-xl lg:px-4 py-8 sm:px-6 sm:py-12 ">
+    <div className="mx-auto max-sm:w-4/5 max-w-screen-xl lg:px-4 py-8 sm:px-6 sm:py-12">
       <ul className="mt-8 grid gap-4 w-full max-sm:grid-cols-2 max-sm:gap-2 justify-center md:grid-cols-2 lg:grid-cols-4">
         {productsWithRandomData.map((product) => (
           <li key={product.id} className="group">
-            <div className="relative w-72 h-64  max-sm:w-48 max-sm:h-48 flex justify-center items-center rounded-md border-2 border-slate-200">
+            <div className="relative w-72 h-64 max-sm:w-48 max-sm:h-48 flex justify-center items-center rounded-md border-2 border-slate-200">
               <Link href={`/${product.id}`}>
-                {" "}
                 {product ? (
                   <Image
                     src={product.image}
@@ -104,7 +116,6 @@ export default function ProductFrame({ products }: ProductFrameProps) {
                   onClick={() => addToWishlist(mapProductToWishList(product))}
                   className="w-8 h-8 rounded-full border-2 border-slate-200 flex justify-center items-center"
                 >
-                  {/* Favorite Icon */}
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
@@ -130,7 +141,7 @@ export default function ProductFrame({ products }: ProductFrameProps) {
               </button>
             </div>
 
-            <div className="  pt-6">
+            <div className="pt-6">
               <h3 className="text-xs text-gray-700 group-hover:underline group-hover:underline-offset-4">
                 {product.title}
               </h3>
@@ -141,20 +152,17 @@ export default function ProductFrame({ products }: ProductFrameProps) {
                 </span>
               </p>
               <div className="flex items-center">
-                {[...Array(5)].map((_, i) => (
-                  <span
-                    key={i}
-                    className={`text-lg ${
-                      i < product.rating ? "text-yellow-400" : "text-gray-300"
-                    }`}
-                  >
-                    ★
-                  </span>
-                ))}
+                <Rating
+                  name="simple-controlled"
+                  value={product.rating}
+                  onChange={(event, newValue) =>
+                    handleRatingChange(product.id, newValue || product.rating)
+                  }
+                />
                 <span className="ml-1 text-lg text-gray-500">
                   ({product.reviews})
                 </span>
-              </div>{" "}
+              </div>
             </div>
           </li>
         ))}
