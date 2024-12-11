@@ -1,4 +1,5 @@
 "use client";
+import { Skeleton } from "@mui/material";
 import Link from "next/link";
 import React, { useState, useEffect, useRef } from "react";
 
@@ -104,16 +105,19 @@ export const SearchComponent: React.FC = () => {
       </div>
 
       {loading && (
-        <p className="mt-2 text-center fixed text-sm text-gray-500">
-          Loading...
-        </p>
+        <Skeleton
+          variant="rectangular"
+          width={288}
+          height={50}
+          className="rounded-lg"
+        />
       )}
       {error && (
         <p className="mt-2 text-center text-sm text-red-500">Error: {error}</p>
       )}
 
       {isDropdownOpen && results.length > 0 && (
-        <ul className="mt-1 w-96 absolute bg-white shadow-lg rounded-md z-50">
+        <ul className="mt-1 w-50 absolute bg-white shadow-lg rounded-md z-50">
           {results.map((product) => (
             <Link href={`/${product.id}`} key={product.id}>
               <li className="border flex p-4 rounded-md cursor-pointer hover:bg-gray-100">

@@ -28,7 +28,7 @@ interface WishlistContextType {
   addToWishlist: (item: WishlistItem) => void;
   removeFromWishlist: (itemId: string) => void;
   clearWishlist: () => void;
-  isInWishlist: (itemId: string) => boolean;
+  isInWishlist: (item: WishlistItem) => boolean;
   moveAllToBag: () => void;
   getWishlistCount: () => number;
 }
@@ -106,7 +106,8 @@ export const WishlistProvider: React.FC<WishlistProviderProps> = ({
   }, []);
 
   const isInWishlist = useCallback(
-    (itemId: string) => wishlistItems.some((item) => item.id === itemId),
+    (item: WishlistItem) =>
+      wishlistItems.some((wishlistItem) => wishlistItem.id === item.id),
     [wishlistItems]
   );
 

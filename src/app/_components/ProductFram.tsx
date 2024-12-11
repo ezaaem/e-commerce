@@ -45,8 +45,8 @@ export default function ProductFrame({ products }: ProductFrameProps) {
     return <div>Loading...</div>;
   }
 
-  const { addToCart } = context;
-  const { addToWishlist } = wishlist;
+  const { addToCart, checkIfInCart, removeFromCart } = context;
+  const { addToWishlist, isInWishlist, removeFromWishlist } = wishlist;
 
   // Initialize state for products with random data
   const [productsWithRandomData, setProductsWithRandomData] = useState<
@@ -67,7 +67,9 @@ export default function ProductFrame({ products }: ProductFrameProps) {
     image: product.image,
   });
 
-  const mapProductToWishList = (product: ProductProps): WishlistItem => ({
+  const mapProductToWishList = (
+    product: ProductWithRandomData
+  ): WishlistItem => ({
     id: product.id,
     name: product.title,
     price: product.price,
@@ -91,10 +93,10 @@ export default function ProductFrame({ products }: ProductFrameProps) {
 
   return (
     <div className="mx-auto max-sm:w-4/5 max-w-screen-xl lg:px-4 py-8 sm:px-6 sm:py-12">
-      <ul className="mt-8 grid gap-4 w-full max-sm:grid-cols-2 max-sm:gap-2 justify-center md:grid-cols-2 lg:grid-cols-4">
+      <ul className="mt-8 grid lg:gap-4 w-full max-sm:grid-cols-2 max-sm:gap-4 justify-center md:grid-cols-2 lg:grid-cols-4">
         {productsWithRandomData.map((product) => (
           <li key={product.id} className="group">
-            <div className="relative w-72 h-64 max-sm:w-48 max-sm:h-48 flex justify-center items-center rounded-md border-2 border-slate-200">
+            <div className="relative w-72 h-64 max-sm:w-44 max-sm:h-48 flex justify-center items-center rounded-md border-2 border-slate-200">
               <Link href={`/${product.id}`}>
                 {product ? (
                   <Image
@@ -111,34 +113,69 @@ export default function ProductFrame({ products }: ProductFrameProps) {
               <span className="absolute top-3 left-2 text-white w-14 h-7 bg-red-500 rounded-md text-xs flex justify-center items-center">
                 -70%
               </span>
-              <div className="absolute top-3 right-2 flex flex-col gap-2">
-                <button
-                  onClick={() => addToWishlist(mapProductToWishList(product))}
-                  className="w-8 h-8 rounded-full border-2 border-slate-200 flex justify-center items-center"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
+              {isInWishlist(mapProductToWishList(product)) ? (
+                <div className="absolute top-3 right-2 flex flex-col gap-2">
+                  <button
+                    onClick={() => removeFromWishlist(product.id)}
+                    className="w-8 h-8 rounded-full border-2 border-slate-200 flex justify-center items-center"
                   >
-                    <path
-                      d="M8 5C5.7912 5 4 6.73964 4 8.88594C4 10.6185 4.7 14.7305 11.5904 18.8873C11.7138 18.961 11.8555 19 12 19C12.1445 19 12.2862 18.961 12.4096 18.8873C19.3 14.7305 20 10.6185 20 8.88594C20 6.73964 18.2088 5 16 5C13.7912 5 12 7.35511 12 7.35511C12 7.35511 10.2088 5 8 5Z"
-                      stroke="black"
-                      strokeWidth="1.5"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="red"
+                    >
+                      <path
+                        d="M8 5C5.7912 5 4 6.73964 4 8.88594C4 10.6185 4.7 14.7305 11.5904 18.8873C11.7138 18.961 11.8555 19 12 19C12.1445 19 12.2862 18.961 12.4096 18.8873C19.3 14.7305 20 10.6185 20 8.88594C20 6.73964 18.2088 5 16 5C13.7912 5 12 7.35511 12 7.35511C12 7.35511 10.2088 5 8 5Z"
+                        stroke="red"
+                        strokeWidth="1.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  </button>
+                </div>
+              ) : (
+                <div className="absolute top-3 right-2 flex flex-col gap-2">
+                  <button
+                    onClick={() => addToWishlist(mapProductToWishList(product))}
+                    className="w-8 h-8 rounded-full border-2 border-slate-200 flex justify-center items-center"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                    >
+                      <path
+                        d="M8 5C5.7912 5 4 6.73964 4 8.88594C4 10.6185 4.7 14.7305 11.5904 18.8873C11.7138 18.961 11.8555 19 12 19C12.1445 19 12.2862 18.961 12.4096 18.8873C19.3 14.7305 20 10.6185 20 8.88594C20 6.73964 18.2088 5 16 5C13.7912 5 12 7.35511 12 7.35511C12 7.35511 10.2088 5 8 5Z"
+                        stroke="black"
+                        strokeWidth="1.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  </button>
+                </div>
+              )}
+
+              {checkIfInCart(mapProductToCartItem(product)) ? (
+                <button
+                  onClick={() => removeFromCart(mapProductToCartItem(product))}
+                  className="bg-black w-full text-white h-10 hidden group-hover:block absolute bottom-0"
+                >
+                  Remove from Cart
                 </button>
-              </div>
-              <button
-                onClick={() => addToCart(mapProductToCartItem(product))}
-                className="bg-black w-full text-white h-10 hidden group-hover:block absolute bottom-0"
-              >
-                Add to Cart
-              </button>
+              ) : (
+                <button
+                  onClick={() => addToCart(mapProductToCartItem(product))}
+                  className="bg-black w-full text-white h-10 hidden group-hover:block absolute bottom-0"
+                >
+                  Add to Cart
+                </button>
+              )}
             </div>
 
             <div className="pt-6">

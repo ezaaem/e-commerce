@@ -22,6 +22,7 @@ interface CartContextType {
   clearCart: () => void;
   getCartTotal: () => number;
   getCartLength: number;
+  checkIfInCart: (item: CartItem) => boolean;
 }
 
 export const CartContext = createContext<CartContextType | undefined>(
@@ -73,6 +74,13 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
     });
   }, []);
 
+  const checkIfInCart = useCallback(
+    (item: CartItem) => {
+      return cartItems.some((cartItem) => cartItem.id === item.id);
+    },
+    [cartItems]
+  );
+
   const clearCart = useCallback(() => {
     setCartItems([]);
   }, []);
@@ -104,7 +112,8 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
         removeFromCart,
         clearCart,
         getCartTotal,
-        getCartLength, // Get cart length as a number
+        getCartLength,
+        checkIfInCart,
       }}
     >
       {children}
